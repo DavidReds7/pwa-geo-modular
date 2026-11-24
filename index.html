@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Geolocalización Consciente</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#064e3b">
+
+  <!-- iOS / Safari -->
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="GeoPWA">
+
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header>
+    <h1>Reporte con Ubicación</h1>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Ubicación del reporte</h2>
+      <p id="estado" role="status">Aún no se ha adjuntado ninguna ubicación.</p>
+      <button id="btn-adjuntar" type="button">Adjuntar mi ubicación</button>
+    </section>
+
+    <!-- Pre-permiso: se muestra ANTES del diálogo nativo -->
+    <section id="aviso-permiso" class="card aviso" hidden>
+      <h2>¿Por qué pedimos tu ubicación?</h2>
+      <p>Necesitamos tu ubicación aproximada para adjuntar las coordenadas al reporte técnico y calcular la sucursal más cercana. Se usa solo en este dispositivo para esta lectura; no se comparte con terceros.</p>
+      <div class="fila">
+        <button id="btn-confirmar-geo" type="button">Compartir mi ubicación</button>
+        <button id="btn-cancelar-geo" type="button" class="secundario">Ahora no</button>
+      </div>
+    </section>
+
+    <!-- Resultado + indicador de calidad -->
+    <section id="resultado" class="card" hidden>
+      <h2>Ubicación obtenida</h2>
+      <span id="etiqueta-precision" class="etiqueta"></span>
+      <dl>
+        <dt>Latitud</dt><dd id="val-lat"></dd>
+        <dt>Longitud</dt><dd id="val-lon"></dd>
+        <dt>Precisión (coords.accuracy)</dt><dd id="val-precision"></dd>
+        <dt>Hora de la lectura</dt><dd id="val-hora"></dd>
+      </dl>
+      <a id="enlace-mapa" href="#" target="_blank" rel="noopener">Ver en mapa</a>
+    </section>
+
+    <!-- Plan B: selector manual de zona -->
+    <section id="plan-b" class="card planb" hidden>
+      <h2>Indica tu zona manualmente</h2>
+      <p id="msg-plan-b"></p>
+      <p id="ayuda-denegado" hidden>Para reactivar el permiso: en el candado de la barra de direcciones (o en Ajustes del navegador / Safari) cambia <b>Ubicación</b> a <b>Permitir</b> y recarga la página.</p>
+      <label for="zona-manual">Zona o ciudad</label>
+      <select id="zona-manual">
+        <option value="">Selecciona una zona…</option>
+        <option>Cuernavaca, Morelos</option>
+        <option>Emiliano Zapata, Morelos</option>
+        <option>Jiutepec, Morelos</option>
+        <option>Temixco, Morelos</option>
+        <option>Cuautla, Morelos</option>
+        <option>Ciudad de México</option>
+        <option>Otra zona</option>
+      </select>
+      <button id="btn-zona-manual" type="button">Usar esta zona</button>
+      <p id="zona-elegida" class="ok" hidden></p>
+    </section>
+  </main>
+
+  <script src="./geo-helper.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
